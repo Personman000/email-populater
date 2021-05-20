@@ -1,0 +1,101 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Test Form</title>
+
+    <script>
+        window.onload = function () {
+            var inputs = document.getElementsByClassName("input");
+            console.log(inputs);
+
+            for (var input of inputs) {
+                input.onchange = function () {
+
+                    var name = document.forms["mainForm"]["name"];
+                    var email_addr = document.forms["mainForm"]["email_addr"];
+                    var mp = document.forms["mainForm"]["mp"];
+                    var email_text = document.forms["mainForm"]["email_text"];
+                    console.log(name.id + ":" + name.value + ", " + email_addr.id + ":" + email_addr.value + ", " + mp.id + ":" + mp.value + ", " + email_text.id + ":" + email_text.value);
+
+                    var mp_text = "";
+                    if (mp.value == "ted") { mp_text = "Mr. Ted Tedderson" }
+                    else if (mp.value == "john") { mp_text = "Mrs. John Johnnerson";  }
+                    else if (mp.value == "me") { mp_text = "Me, Myself, & I" }
+                    else if (mp.value == "you") { mp_text = "You" }
+                    else if (mp.value == "manal") { mp_text = "Ms. Manal Syeda Irfan Syed Ali Ali" }
+
+                    console.log("mp_text: " + mp_text);
+                    var email_text = document.getElementById("email_text");
+
+                    email_text.value = "";
+                    if (mp.value != "unselected") {
+                        email_text.value += "Hello " + mp_text
+
+                        if (name.value != "") {
+                            email_text.value += ", \
+my name is " + name.value + ", and I have a bone to pick with you.";
+                        }
+                    }
+                }
+            }
+        }
+
+        function submitForm() {
+            var name = document.forms["mainForm"]["name"].value;
+            var email_addr = document.forms["mainForm"]["email_addr"].value;
+            var mp = document.forms["mainForm"]["mp"].value;
+
+            if (name == "") {
+                alert("Name must be filled out");
+                return false;
+            }
+            if (!/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email_addr) || email_addr == "") {
+                alert("Please enter a valid email address");
+                return false;
+            }
+            if (mp == "unselected") {
+                alert("Please pick an MP");
+                return false;
+            }
+
+            var email_text = document.getElementById("email_text").value;
+            var subject = "Palestine Email";
+            window.open('mailto:'+mp+'@canada.gov?subject='+subject+'&body='+email_text);
+        }
+    </script>
+</head>
+<body>
+    <form name="mainForm" onsubmit="return submitForm()">
+        <label for="name">Name:</label>
+        <br>
+        <input class="input" type="text" id="name" name="name" placeholder="Full Name">
+        <br>
+        <br>
+        <label for="email_addr">Email:</label><br>
+        <input class="input" type="text" id="email_addr" name="email_addr" placeholder="email@domain.com">
+        <br>
+        <br>
+        <label for="mp">Choose an MP:</label>
+        <br>
+        <select class="input" name="mp" id="mp">
+            <option value="unselected">Select an Option</option>
+            <option value="ted">Ted</option>
+            <option value="john">John</option>
+            <option value="me">Me</option>
+            <option value="you">You</option>
+            <option value="manal">Manal</option>
+        </select>
+        <br>
+        <br>
+        <label for="email_text">Email:</label>
+        <br>
+        <textarea id="email_text" name="email_text" rows="4" cols="50">
+        </textarea>
+        <br>
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
