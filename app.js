@@ -10,7 +10,8 @@ window.onload = function () {
     populateList("#subject_list", "option", 'https://raw.githubusercontent.com/Personman000/email-populater/master/lists/subject_lines.txt');
     populateList("#body_list", "option", 'https://raw.githubusercontent.com/Personman000/email-populater/master/lists/bodies.txt');
     populateList("#mp_list", "option", 'https://raw.githubusercontent.com/Personman000/email-populater/master/lists/mps.txt');
-    populateList("#tip_list", "li", 'https://raw.githubusercontent.com/Personman000/email-populater/master/lists/tips.txt');
+    populateList("#tip_list_1", "li", 'https://raw.githubusercontent.com/Personman000/email-populater/master/lists/tips1.txt');
+    populateList("#tip_list_2", "li", 'https://raw.githubusercontent.com/Personman000/email-populater/master/lists/tips2.txt');
 }
 
 
@@ -124,22 +125,22 @@ function submitForm() {
 }
 
 
-function showList() {
+function showHideFromLabel() {
     // Get list style from label
     var label = document.getElementById(event.srcElement.id);
-    var list = document.getElementById(label.getAttribute("for"));
-    var display = list.style.display;
+    var element = document.getElementById(label.getAttribute("for"));
+    var display = element.style.display;
 
-    console.log(list);
+    console.log(element);
     console.log(display);
 
     // If invisible, turn visible
     if(display == "none")
     {
-        list.style.display = "";
+        element.style.display = "";
     }
     // If visible, turn invisible
     else {
-        list.style.display = "none";
+        element.style.display = "none";
     }
 }
