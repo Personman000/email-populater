@@ -7,16 +7,19 @@ window.onload = function () {
         input.onchange = populateEmail;
     }
 
-    //populateList("#body_list", 'https://raw.githubusercontent.com/Personman000/email-populater/master/test.txt');
-    populateList("#subject_list", 'https://raw.githubusercontent.com/Personman000/email-populater/master/subject_lines.txt');
-    populateList("#body_list", 'https://raw.githubusercontent.com/Personman000/email-populater/master/bodies.txt');
+    populateList("#subject_list", "option", 'https://raw.githubusercontent.com/Personman000/email-populater/master/lists/subject_lines.txt');
+    populateList("#body_list", "option", 'https://raw.githubusercontent.com/Personman000/email-populater/master/lists/bodies.txt');
+    populateList("#mp_list", "option", 'https://raw.githubusercontent.com/Personman000/email-populater/master/lists/mps.txt');
+    populateList("#tip_list", "li", 'https://raw.githubusercontent.com/Personman000/email-populater/master/lists/tips.txt');
 }
 
 
 // Populate drop-down list with data from files
-function populateList(id, filepath) {
+function populateList(id, item_type, filepath) {
+    // Get file
     d3.text(filepath).then(function (data, event) {
 
+        // Get list object
         var element = d3.select(id);
         
         var list_item;
@@ -25,11 +28,13 @@ function populateList(id, filepath) {
         console.log(id)
         console.log(list_items);
 
+        // Loop through each line in txt file
         for(var i = 0; i < list_items.length; i++) {
 
             list_item = list_items[i];
 
-            element.insert("option").attr("value", list_item);
+            // Add line as option to list
+            element.insert(item_type).attr("value", list_item).html(list_item);
 
         }
     })
@@ -48,15 +53,8 @@ function populateEmail() {
     console.log(name.id + ":" + name.value + ", " + email_source.id + ":" + email_source.value + ", " + mp.id + ":" + mp.value + ", " + email_text.id + ":" + email_text.value);
 
     // Get MP name and email
-    var mp_name = "";
-    var email_target = "";
-    if (mp.value == "ted") { mp_name = "Mr. Ted Tedderson"; email_target = "ted_tedderson@canada.gov"; }
-    else if (mp.value == "john") { mp_name = "Mrs. John Johnnerson"; email_target = "jJohn1985@hotmail.gov"; }
-    else if (mp.value == "me") { mp_name = "Me, Myself, & I"; email_target = "some_email@some_domain.gov"; }
-    else if (mp.value == "you") { mp_name = "You"; email_target = email_source; }
-    else if (mp.value == "manal") { mp_name = "Ms. Manal Syeda Irfan Syed Ali Ali"; email_target = "manal@manallama.gov"; }
-
-    console.log("mp_name: " + mp_name);
+    var mp_name = mp.value;
+    var email_target = mp.value.replace(/\s/g, '');
 
     // Populate email text
     var email_text = document.getElementById("email_text");
@@ -123,4 +121,25 @@ function submitForm() {
     // Send email
     var email_text = document.getElementById("email_text").value;
     window.open('mailto:'+mp+'@canada.gov?subject='+subject+'&body='+email_text);
+}
+
+
+function showList() {
+    // Get list style from label
+    var label = document.getElementById(event.srcElement.id);
+    var list = document.getElementById(label.getAttribute("for"));
+    var display = list.style.display;
+
+    console.log(list);
+    console.log(display);
+
+    // If invisible, turn visible
+    if(display == "none")
+    {
+        list.style.display = "";
+    }
+    // If visible, turn invisible
+    else {
+        list.style.display = "none";
+    }
 }

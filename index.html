@@ -11,7 +11,7 @@
 <body>
     <form name="mainForm" onsubmit="return submitForm()">
         <label for="name">Name:</label><br>
-        <input class="input" type="text" id="name" name="name" placeholder="Full Name">
+        <input class="input" type="text" id="name" name="name" placeholder="Full name">
         
         <br>
         <br>
@@ -23,20 +23,15 @@
         <br>
         
         <label for="mp">Choose an MP:</label><br>
-        <input class="input" list="mp_list" class="form-control" id="mp" autocomplete="off" placeholder="">
+        <input class="input" list="mp_list" class="form-control" id="mp" autocomplete="off" placeholder="Type your MP's full name, or pick from the list">
         <datalist id="mp_list">
-            <option value="ted"></option>
-            <option value="john"></option>
-            <option value="me"></option>
-            <option value="you"></option>
-            <option value="manal"></option>
         </datalist>
 
         <br>
         <br>
         
         <label for="subject">Subject:</label><br>
-        <input class="input" list="subject_list" class="form-control" id="subject" autocomplete="off" placeholder="Free Palestine">
+        <input class="input" list="subject_list" class="form-control" id="subject" autocomplete="off" placeholder="Pick from the list, or type your own.">
         <datalist id="subject_list">
         </datalist>
         
@@ -44,9 +39,17 @@
         <br>
 
         <label for="body">Body:</label><br>
-        <input class="input" list="body_list" class="form-control" id="body" autocomplete="off" placeholder="">
+        <input class="input" list="body_list" class="form-control" id="body" autocomplete="off" placeholder="Pick from the list, or type your own.">
         <datalist id="body_list">
         </datalist>
+
+        <br>
+        <br>
+
+        <label for="tip_list" id="tips" onclick="showList()" style="text-decoration: underline; font-style: italic;">More tips</label><br>
+        <ul id="tip_list" style="display: none;">
+        </ul>
+
 
         <br>
         <br>
