@@ -2,42 +2,54 @@ window.onload = function () {
     var inputs = document.getElementsByClassName("input");
     console.log(inputs);
 
+    // Populate email any time a relevant input field is cahnged
     for (var input of inputs) {
-        input.onchange = function () {
+        input.onchange = populateEmail;
+    }
+}
 
-            var name = document.forms["mainForm"]["name"];
-            var email_addr = document.forms["mainForm"]["email_addr"];
-            var mp = document.forms["mainForm"]["mp"];
-            var email_text = document.forms["mainForm"]["email_text"];
-            console.log(name.id + ":" + name.value + ", " + email_addr.id + ":" + email_addr.value + ", " + mp.id + ":" + mp.value + ", " + email_text.id + ":" + email_text.value);
+function populateEmail() {
 
-            var mp_text = "";
-            var email_target = "";
-            if (mp.value == "ted") { mp_text = "Mr. Ted Tedderson"; email_target = "ted_tedderson@canada.gov"; }
-            else if (mp.value == "john") { mp_text = "Mrs. John Johnnerson"; email_target = "jJohn1985@hotmail.gov"; }
-            else if (mp.value == "me") { mp_text = "Me, Myself, & I"; email_target = "some_email@some_domain.gov"; }
-            else if (mp.value == "you") { mp_text = "You"; email_target = email_addr; }
-            else if (mp.value == "manal") { mp_text = "Ms. Manal Syeda Irfan Syed Ali Ali"; email_target = "manal@manallama.gov"; }
+    // Get form data
+    var name = document.forms["mainForm"]["name"];
+    var email_source = document.forms["mainForm"]["email_source"];
+    var mp = document.forms["mainForm"]["mp"];
+    var email_text = document.forms["mainForm"]["email_text"];
+    console.log(name.id + ":" + name.value + ", " + email_source.id + ":" + email_source.value + ", " + mp.id + ":" + mp.value + ", " + email_text.id + ":" + email_text.value);
 
-            console.log("mp_text: " + mp_text);
-            var email_text = document.getElementById("email_text");
+    // Get MP name and email
+    var mp_name = "";
+    var email_target = "";
+    if (mp.value == "ted") { mp_name = "Mr. Ted Tedderson"; email_target = "ted_tedderson@canada.gov"; }
+    else if (mp.value == "john") { mp_name = "Mrs. John Johnnerson"; email_target = "jJohn1985@hotmail.gov"; }
+    else if (mp.value == "me") { mp_name = "Me, Myself, & I"; email_target = "some_email@some_domain.gov"; }
+    else if (mp.value == "you") { mp_name = "You"; email_target = email_source; }
+    else if (mp.value == "manal") { mp_name = "Ms. Manal Syeda Irfan Syed Ali Ali"; email_target = "manal@manallama.gov"; }
 
-            email_text.value = "";
-            if (mp.value != "unselected") {
-                email_text.value += "Hello " + mp_text
+    console.log("mp_name: " + mp_name);
 
-                if (name.value != "") {
-                    email_text.value += ", \
+    // Populate email text
+    var email_text = document.getElementById("email_text");
+    email_text.value = "";
+
+    if (mp.value != "unselected") {
+
+        // Populate MP name
+        email_text.value += "Hello " + mp_name
+
+        if (name.value != "") {
+
+            // Populate sender name
+            // Populate email body
+            email_text.value += ", \
 my name is " + name.value + ", and I have a bone to pick with you.";
-                }
-            }
         }
     }
 }
 
 function submitForm() {
     var name = document.forms["mainForm"]["name"].value;
-    var email_addr = document.forms["mainForm"]["email_addr"].value;
+    var email_source = document.forms["mainForm"]["email_source"].value;
     var mp = document.forms["mainForm"]["mp"].value;
     var subject = document.forms["mainForm"]["subject"].value;
 
@@ -45,7 +57,7 @@ function submitForm() {
         alert("Name must be filled out");
         return false;
     }
-    if (!/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email_addr) || email_addr == "") {
+    if (!/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email_source) || email_source == "") {
         alert("Please enter a valid email address");
         return false;
     }
