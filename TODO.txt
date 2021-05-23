@@ -1,0 +1,18 @@
+TODO
+- italics description beneath each form
+- Part 3 - More tips droplist
+- Part 4 - Add hyperlinks (sent by team) to descriptions
+- Part 6 - Options list title. Expandable to show details
+
+----------------------------------------
+If we can integrate Taz's MP-search thingy:
+- Step 1 & 2 - Autopopulate MP name & email based on Postal Code
+- Part 5 - Options based on MP's stance
+
+----------------------------------------
+- Auto Populate with MP Names
+
+Lowest Priority
+- Email automatically instead of through app
+- CC themselves
+- Progress bar

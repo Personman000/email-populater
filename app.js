@@ -74,7 +74,10 @@ function populateEmail() {
     }
 
     // Populate sender name
-    if (name.value != "") {
+    if (name.value != "" & mp.value != "") {
+        email_text.value += "My name is " + name.value + ". ";
+    }
+    else if (name.value != "") {
 
         email_text.value += "my name is " + name.value + ". ";
     }
