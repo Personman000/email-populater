@@ -44,6 +44,7 @@ function populateEmail() {
     var email_source = document.forms["mainForm"]["email_source"];
     var mp = document.forms["mainForm"]["mp"];
     var email_text = document.forms["mainForm"]["email_text"];
+    var body = document.forms["mainForm"]["body"];
     console.log(name.id + ":" + name.value + ", " + email_source.id + ":" + email_source.value + ", " + mp.id + ":" + mp.value + ", " + email_text.id + ":" + email_text.value);
 
     // Get MP name and email
@@ -61,42 +62,62 @@ function populateEmail() {
     var email_text = document.getElementById("email_text");
     email_text.value = "";
 
+    // Populate MP name
     if (mp.value != "") {
 
-        // Populate MP name
-        email_text.value += "Hello " + mp_name
+        email_text.value += "Hello " + mp_name + ",\n\n";
+    }
+    // Or just say Hello if no MP name
+    else
+    {
+        email_text.value += "Hello, "
+    }
 
-        if (name.value != "") {
+    // Populate sender name
+    if (name.value != "") {
 
-            // Populate sender name
-            // Populate email body
-            email_text.value += ", \
-my name is " + name.value + ", and I have a bone to pick with you.";
-        }
+        email_text.value += "my name is " + name.value + ". ";
+    }
+
+    // Populate email body
+    if (body.value != "") {
+
+        email_text.value += body.value;
     }
 }
 
 
 // Validate form data then submit
 function submitForm() {
+
+    // Get form data
     var name = document.forms["mainForm"]["name"].value;
     var email_source = document.forms["mainForm"]["email_source"].value;
     var mp = document.forms["mainForm"]["mp"].value;
     var subject = document.forms["mainForm"]["subject"].value;
 
+    // Validate name
     if (name == "") {
         alert("Name must be filled out");
         return false;
     }
+    // Validate source email
     if (!/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email_source) || email_source == "") {
         alert("Please enter a valid email address");
         return false;
     }
-    if (mp == "unselected") {
+    // Validate mp name
+    if (mp == "") {
         alert("Please pick an MP");
         return false;
     }
+    // Validate subject line
+    if (subject == "") {
+        alert("Please input a subject line");
+        return false;
+    }
 
+    // Send email
     var email_text = document.getElementById("email_text").value;
     window.open('mailto:'+mp+'@canada.gov?subject='+subject+'&body='+email_text);
 }
