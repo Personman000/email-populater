@@ -3,43 +3,61 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
+    <script src="https://d3js.org/d3.v6.min.js"></script>
     <script type="text/javascript" src="app.js"></script>
     <title>Test Form</title>
 
 </head>
 <body>
     <form name="mainForm" onsubmit="return submitForm()">
-        <label for="name">Name:</label>
-        <br>
+        <label for="name">Name:</label><br>
         <input class="input" type="text" id="name" name="name" placeholder="Full Name">
+        
         <br>
         <br>
+        
         <label for="email_source">Email:</label><br>
         <input class="input" type="text" id="email_source" name="email_source" placeholder="email@domain.com">
+        
         <br>
         <br>
-        <label for="mp">Choose an MP:</label>
+        
+        <label for="mp">Choose an MP:</label><br>
+        <input class="input" list="mp_list" class="form-control" id="mp" autocomplete="off" placeholder="">
+        <datalist id="mp_list">
+            <option value="ted"></option>
+            <option value="john"></option>
+            <option value="me"></option>
+            <option value="you"></option>
+            <option value="manal"></option>
+        </datalist>
+
         <br>
-        <select class="input" name="mp" id="mp">
-            <option value="unselected">Select an Option</option>
-            <option value="ted">Ted</option>
-            <option value="john">John</option>
-            <option value="me">Me</option>
-            <option value="you">You</option>
-            <option value="manal">Manal</option>
-        </select>
+        <br>
+        
+        <label for="subject">Subject:</label><br>
+        <input class="input" list="subject_list" class="form-control" id="subject" autocomplete="off" placeholder="Free Palestine">
+        <datalist id="subject_list">
+        </datalist>
+        
         <br>
         <br>
-        <label for="subject">Subject:</label>
+
+        <label for="body">Body:</label><br>
+        <input class="input" list="body_list" class="form-control" id="body" autocomplete="off" placeholder="">
+        <datalist id="body_list">
+        </datalist>
+
         <br>
-        <input class="input" type="text" id="subject" name="subject" placeholder="Free Palestine">
         <br>
-        <label for="email_text">Email:</label>
-        <br>
+        
+        <label for="email_text">Email Text:</label><br>
         <textarea id="email_text" name="email_text" rows="4" cols="50">
         </textarea>
+        
         <br>
         <br>
+        
         <input type="submit" value="Submit">
     </form>
 </body>

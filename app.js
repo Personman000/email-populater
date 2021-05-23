@@ -6,8 +6,37 @@ window.onload = function () {
     for (var input of inputs) {
         input.onchange = populateEmail;
     }
+
+    //populateList("#body_list", 'https://raw.githubusercontent.com/Personman000/email-populater/master/test.txt');
+    populateList("#subject_list", 'https://raw.githubusercontent.com/Personman000/email-populater/master/subject_lines.txt');
+    populateList("#body_list", 'https://raw.githubusercontent.com/Personman000/email-populater/master/bodies.txt');
 }
 
+
+// Populate drop-down list with data from files
+function populateList(id, filepath) {
+    d3.text(filepath).then(function (data, event) {
+
+        var element = d3.select(id);
+        
+        var list_item;
+        var list_items = data.split("\n");
+        
+        console.log(id)
+        console.log(list_items);
+
+        for(var i = 0; i < list_items.length; i++) {
+
+            list_item = list_items[i];
+
+            element.insert("option").attr("value", list_item);
+
+        }
+    })
+}
+
+
+// Populate email with form data
 function populateEmail() {
 
     // Get form data
@@ -32,7 +61,7 @@ function populateEmail() {
     var email_text = document.getElementById("email_text");
     email_text.value = "";
 
-    if (mp.value != "unselected") {
+    if (mp.value != "") {
 
         // Populate MP name
         email_text.value += "Hello " + mp_name
@@ -47,6 +76,8 @@ my name is " + name.value + ", and I have a bone to pick with you.";
     }
 }
 
+
+// Validate form data then submit
 function submitForm() {
     var name = document.forms["mainForm"]["name"].value;
     var email_source = document.forms["mainForm"]["email_source"].value;
