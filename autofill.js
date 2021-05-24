@@ -12,6 +12,16 @@ window.onload = function () {
     populateList("#mp_list", "option", 'https://raw.githubusercontent.com/Personman000/email-populater/master/lists/mps.txt');
     populateList("#tip_list_1", "li", 'https://raw.githubusercontent.com/Personman000/email-populater/master/lists/tips1.txt');
     populateList("#tip_list_2", "li", 'https://raw.githubusercontent.com/Personman000/email-populater/master/lists/tips2.txt');
+
+    // Populate list from previous step
+    var step_2_name = document.getElementById("user-input");
+    if(step_2_name) {
+        step_2_name.onchange = function() {
+            document.getElementById("mp").value = step_2_name.value;
+            populateEmail();
+        }
+    }
+
 }
 
 
