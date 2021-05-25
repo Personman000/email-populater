@@ -12,6 +12,7 @@ window.onload = function () {
     populateList("#mp_list", "option", 'https://raw.githubusercontent.com/Personman000/email-populater/master/lists/mps.txt');
     populateList("#tip_list_1", "li", 'https://raw.githubusercontent.com/Personman000/email-populater/master/lists/tips1.txt');
     populateList("#tip_list_2", "li", 'https://raw.githubusercontent.com/Personman000/email-populater/master/lists/tips2.txt');
+    populateListCheckboxes("#call_to_action_list", "input", 'https://raw.githubusercontent.com/Personman000/email-populater/master/lists/calls_to_action.txt');
 
     // Populate list from previous step
     var step_2_name = document.getElementById("user-input");
@@ -24,9 +25,16 @@ window.onload = function () {
 
 }
 
+function populateList(id, item_type, filepath) {
+    populateListHelper(id, item_type, null, null, null, filepath);
+}
+
+function populateListCheckboxes(id, item_type, filepath) {
+    populateListHelper(id, item_type, "checkbox", "label", "<br>", filepath);
+}
 
 // Populate drop-down list with data from files
-function populateList(id, item_type, filepath) {
+function populateListHelper(id, item_type, special_type, after_type, after_html, filepath) {
     // Get file
     d3.text(filepath).then(function (data, event) {
 
@@ -45,8 +53,41 @@ function populateList(id, item_type, filepath) {
             list_item = list_items[i];
 
             // Add line as option to list
-            element.insert(item_type).attr("value", list_item).html(list_item);
+            var child = element.insert(item_type).attr("type", special_type).attr("value", list_item).html(list_item);
 
+            // Specific funtionality, meant only for Call to Action list
+            if(after_html != null && after_type != null){
+                i += 1;
+                var next_item = list_items[i];
+
+                // Re-set checkbox value
+                child.attr("value", next_item)
+
+                // Add main label
+                element.insert(after_type)
+                    .attr("value", next_item)
+                    .html(list_item);
+
+                // Add line break
+                element.insert("br");
+
+                // Add Expand label
+                element.insert("label").html("Expand...")
+                    .attr("for", list_item)
+                    .attr("onclick", "showHideFromLabel()")
+                    .attr("style", "font-style:italic; text-decoration:underline;");
+
+                // Add line break
+                element.insert("br");
+
+                // Add second label
+                element.insert(after_type).html(next_item + "<br>")
+                    .attr("id", list_item)
+                    .attr("style", "display:none;");
+
+                // Add line break
+                element.insert("br");
+            }
         }
     })
 }
@@ -137,7 +178,7 @@ function submitForm() {
 
 function showHideFromLabel() {
     // Get list style from label
-    var label = document.getElementById(event.srcElement.id);
+    var label = event.srcElement;
     var element = document.getElementById(label.getAttribute("for"));
     var display = element.style.display;
 
