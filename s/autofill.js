@@ -14,12 +14,68 @@ window.onload = function () {
     populateList("#tip_list_2", "li", 'https://raw.githubusercontent.com/Personman000/email-populater/master/lists/tips2.txt');
     populateListCheckboxes("#call_to_action_list", "input", 'https://raw.githubusercontent.com/Personman000/email-populater/master/lists/calls_to_action.txt');
 
-    // Populate list from previous step
-    var step_2_name = document.getElementById("user-input");
-    if(step_2_name) {
-        step_2_name.onchange = function() {
+    // integration functionality
+    var step_2_button = document.getElementById("button");
+    var step_2_results = document.getElementById("results-table");
+
+    if(step_2_button && step_2_results) {
+
+        // On step 2 button click
+        step_2_button.onclick = function() {
+
+            // Populate mp name using step 2 input
+            var step_2_name = document.getElementById("user-input");
             document.getElementById("mp").value = step_2_name.value;
             populateEmail();
+        }
+
+        // Load acknowledge menu when mousing over form (janky workaround)
+        document.getElementById("autofillForm").onmouseenter = function() {
+
+            // Populate acknowledgement list using step 2 results
+            var step_2_values = step_2_results.getElementsByTagName("td");
+            var step_2_value;
+
+            var has_red = false;
+            var has_green = false;
+
+            console.log(step_2_values);
+            console.log(step_2_values.length);
+
+            // Loop through results list
+            for(var i = 0; i < step_2_values.length; i++) {
+
+                step_2_value = step_2_values[i];
+
+                // Check if red values exist
+                if(step_2_value.style.backgroundColor == "darkred") {
+                    has_red = true;
+                }
+                // Check if green values exist
+                else if(step_2_value.style.backgroundColor == "green") {
+                    has_green = true;
+                }
+
+                console.log(step_2_value);
+                console.log(step_2_value.style.backgroundColor);
+            }
+
+            console.log(has_red);
+            console.log(has_green);
+
+            // Populate acknowledgement list using the colors found
+            if(has_red == true && has_green == true) {
+                populateList("#acknowledge_list", "option", 'https://raw.githubusercontent.com/Personman000/email-populater/master/lists/double_acknowledgements.txt');
+            }
+            else if(has_red == true) {
+                populateList("#acknowledge_list", "option", 'https://raw.githubusercontent.com/Personman000/email-populater/master/lists/red_acknowledgements.txt');
+            }
+            else if(has_green == true) {
+                populateList("#acknowledge_list", "option", 'https://raw.githubusercontent.com/Personman000/email-populater/master/lists/green_acknowledgements.txt');
+            }
+            else {
+                document.getElementById("acknowledge_list").innerHTML = "";
+            }
         }
     }
 
@@ -39,12 +95,10 @@ function populateListHelper(id, item_type, special_type, after_type, after_html,
     d3.text(filepath).then(function (data, event) {
 
         // Get list object
-        var element = d3.select(id);
+        var element = d3.select(id).html("");
         
         var list_item;
         var list_items = data.split("\n");
-        
-        
         
 
         // Loop through each line in txt file
@@ -98,11 +152,12 @@ function populateListHelper(id, item_type, special_type, after_type, after_html,
 function populateEmail() {
 
     // Get form data
-    var name = document.forms["mainForm"]["name"];
-    var email_source = document.forms["mainForm"]["email_source"];
-    var mp = document.forms["mainForm"]["mp"];
-    var email_text = document.forms["mainForm"]["email_text"];
-    var body = document.forms["mainForm"]["body"];
+    var name = document.forms["autofillForm"]["name"];
+    var email_source = document.forms["autofillForm"]["email_source"];
+    var mp = document.forms["autofillForm"]["mp"];
+    var email_text = document.forms["autofillForm"]["email_text"];
+    var body = document.forms["autofillForm"]["body"];
+    var acknowledge = document.forms["autofillForm"]["acknowledge"]
     var cta_list = document.getElementById("call_to_action_list")
     
 
@@ -117,7 +172,7 @@ function populateEmail() {
     // Populate MP name
     if (mp.value != "") {
 
-        email_text.value += "Hello " + mp_name + ",\n\n";
+        email_text.value += "Hello " + mp_name + ",";
     }
     // Or just say Hello if no MP name
     else
@@ -127,17 +182,24 @@ function populateEmail() {
 
     // Populate sender name
     if (name.value != "" & mp.value != "") {
-        email_text.value += "My name is " + name.value + ". ";
+        email_text.value += "\n\nMy name is " + name.value + ".";
     }
     else if (name.value != "") {
 
-        email_text.value += "my name is " + name.value + ". ";
+        email_text.value += "my name is " + name.value + ".";
     }
 
     // Populate email body
     if (body.value != "") {
 
-        email_text.value += body.value;
+        email_text.value += " " + body.value;
+    }
+
+    // Populate acknowledgement
+    // Populate email body
+    if (acknowledge.value != "") {
+
+        email_text.value += "\n\n" + acknowledge.value;
     }
 
     // Populate call to action
@@ -165,10 +227,10 @@ function populateEmail() {
 function submitForm() {
 
     // Get form data
-    var name = document.forms["mainForm"]["name"].value;
-    var email_source = document.forms["mainForm"]["email_source"].value;
-    var mp = document.forms["mainForm"]["mp"].value;
-    var subject = document.forms["mainForm"]["subject"].value;
+    var name = document.forms["autofillForm"]["name"].value;
+    var email_source = document.forms["autofillForm"]["email_source"].value;
+    var mp = document.forms["autofillForm"]["mp"].value;
+    var subject = document.forms["autofillForm"]["subject"].value;
 
     // Validate name
     if (name == "") {

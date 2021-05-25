@@ -9,7 +9,7 @@
 
 </head>
 <body>
-    <form name="mainForm" onsubmit="return submitForm()">
+    <form id="autofillForm" name="autofillForm" onsubmit="return submitForm()">
         <label for="name">Name:</label><br>
         <input class="input" type="text" id="name" name="name" placeholder="Full name">
         
@@ -41,6 +41,14 @@
         <label for="body">Body:</label><br>
         <input class="input" list="body_list" class="form-control" id="body" autocomplete="off" placeholder="Pick from the list, or type your own.">
         <datalist id="body_list">
+        </datalist>
+
+        <br>
+        <br>
+
+        <label for="body">Acknowledge Your MP’s Actions:</label><br>
+        <input class="input" list="acknowledge_list" class="form-control" id="acknowledge" autocomplete="off" placeholder="Pick from the list, or type your own.">
+        <datalist id="acknowledge_list">
         </datalist>
 
         <br>
