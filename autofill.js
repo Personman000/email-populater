@@ -62,7 +62,6 @@ function populateListHelper(id, item_type, special_type, after_type, after_html,
 
                 // Re-set checkbox value
                 child.attr("value", next_item)
-                    .attr("onchange", "populateEmail()")
 
                 // Add main label
                 element.insert(after_type)
@@ -141,22 +140,8 @@ function populateEmail() {
     }
 
     // Populate call to action
-    var cta_list_items = cta_list.childNodes;
-    for(var i = 0; i < cta_list_items.length; i++) {
-
-        var cta_list_item = cta_list_items[i];
-
-        // If item is checkbox...
-        if(cta_list_item.type == "checkbox") {
-
-            // And checkbox is checked...
-            if(cta_list_item.checked) {
-
-                // Then add checked value to email
-                email_text.value += "\n\n" + cta_list_item.value;
-            }
-        }
-    }
+    var cta_checkboxes = cta_list.childNodes;
+    console.log(cta_checkboxes);
 
 }
 
