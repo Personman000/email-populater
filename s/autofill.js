@@ -1,12 +1,6 @@
 window.onload = function () {
     var inputs = document.getElementsByClassName("input");
-    
-var waypoint = new Waypoint({
-    element: document.getElementById("acknowledge"),
-    handler: function(direction) {
-        console.log('Scrolled to waypoint!')
-    }
-});
+
     // Populate email any time a relevant input field is cahnged
     for (var input of inputs) {
         input.onchange = populateEmail;
