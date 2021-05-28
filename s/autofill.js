@@ -1,7 +1,12 @@
 window.onload = function () {
     var inputs = document.getElementsByClassName("input");
     
-
+var waypoint = new Waypoint({
+    element: document.getElementById("acknowledge"),
+    handler: function(direction) {
+        console.log('Scrolled to waypoint!')
+    }
+});
     // Populate email any time a relevant input field is cahnged
     for (var input of inputs) {
         input.onchange = populateEmail;
@@ -84,7 +89,7 @@ window.onload = function () {
                     ack_sub.innerHTML = "We could not find any information about your MP’s stance on Palestine. But you can speak to their party’s stance and actions.";
                 }
             }
-        })
+        }
 
         // On mp name change, update Step 2
         document.getElementById("mp").onchange = function() {
