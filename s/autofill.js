@@ -207,7 +207,7 @@ function populateEmail() {
     // Or just say Hello if no MP name
     else
     {
-        email_text.value += "Hello, "
+        email_text.value += "Hello,"
     }
 
     // Populate sender name
@@ -216,7 +216,7 @@ function populateEmail() {
     }
     else if (name.value != "") {
 
-        email_text.value += "my name is " + name.value + ".";
+        email_text.value += " my name is " + name.value + ".";
     }
 
     // Populate purpose
@@ -245,6 +245,7 @@ function populateEmail() {
 
     // Populate call to action
     var cta_list_items = cta_list.childNodes;
+    var add_intro = true;
     for(var i = 0; i < cta_list_items.length; i++) {
 
         var cta_list_item = cta_list_items[i];
@@ -254,6 +255,12 @@ function populateEmail() {
 
             // And checkbox is checked...
             if(cta_list_item.checked) {
+
+                // Add intro if not already added.
+                if(add_intro == true) { 
+                    email_text.value += "\n\nDespite the ceasefire, Israel continues to attack innocent civilians in Palestine. Israel’s illegal policies also continue - occupation, apartheid, forced evictions, and ethnic cleansing. We cannot be appeased by a ceasefire. So, I ask you to commit to the following actions.";
+                    add_intro = false;
+                }
 
                 // Then add checked value to email
                 email_text.value += "\n\n" + cta_list_item.value;
@@ -302,8 +309,12 @@ function submitForm() {
     }
 
     // Send email
-    var email_text = document.getElementById("email_text").value;
+    var email_text = encodeURIComponent(document.getElementById("email_text").value);
+    console.log(email_text);
     window.open(`mailto:${email_target}?subject=${subject}&body=${email_text}`);
+
+    // Stop refreshing on submit
+    return false;
 }
 
 
