@@ -9,53 +9,85 @@
 
 </head>
 <body>
+    <h2>Step 3: Write your email</h2>
     <form id="autofillForm" name="autofillForm" onsubmit="return submitForm()">
-        <label for="name">Name:</label><br>
+        <label for="name">Your Name:</label><br>
         <input class="input" type="text" id="name" name="name" placeholder="Full name">
         
         <br>
         <br>
         
-        <label for="email_source">Email:</label><br>
+        <label for="email_source">Your Email Address:</label><br>
         <input class="input" type="text" id="email_source" name="email_source" placeholder="email@domain.com">
-        
+
         <br>
         <br>
         
-        <label for="mp">Choose an MP:</label><br>
-        <input class="input" list="mp_list" class="form-control" id="mp" autocomplete="off" placeholder="Type your MP's full name, or pick from the list">
+        <label for="mp">Find Your MP:</label><br>
+        <input class="input" list="mp_list" class="form-control" id="mp" autocomplete="off" placeholder="Type your own or pick from the list">
         <datalist id="mp_list">
         </datalist>
 
         <br>
         <br>
+
+        <label for="mp">MP Email:</label><br>
+        <input class="input" type="text" id="email_target" name="email_target" placeholder="email@domain.com">
+
+        <br>
+        <br>
         
-        <label for="subject">Subject:</label><br>
-        <input class="input" list="subject_list" class="form-control" id="subject" autocomplete="off" placeholder="Pick from the list, or type your own.">
+        <label for="subject">Subject Line:</label><br>
+        <h6>Use a clear subject line that focuses on the issue you’re covering in your email. Use key words like: apartheid, ongoing violence, human rights abuses, violation of international law, illegal dispossession of homes, violent attacks, etc.</h6>
+        <input class="input" list="subject_list" class="form-control" id="subject" autocomplete="off" placeholder="Type your own or pick from list.">
         <datalist id="subject_list">
         </datalist>
         
         <br>
-        <br>
 
-        <label for="body">Body:</label><br>
-        <input class="input" list="body_list" class="form-control" id="body" autocomplete="off" placeholder="Pick from the list, or type your own.">
-        <datalist id="body_list">
+        <label for="purpose">The Purpose:</label><br>
+        <h6>Engage your MP with something short and to the point. State your purpose in the first 1-3 sentences. You can use a compelling fact or statement for impact.</h6>
+        <input class="input" list="purpose_list" class="form-control" id="purpose" autocomplete="off" placeholder="Type your own or pick from list.">
+        <datalist id="purpose_list">
         </datalist>
+        
+        <br>
 
+        <label for="connection">A Personalized Connection:</label><br>
+        <h6>Share who you are and why you care. It’s important that you use your own words - MPs are more likely to listen when the message is personalized.</h6>
+        <input class="input" list="connection_list" class="form-control" id="connection" autocomplete="off" placeholder="Type your own or pick from list.">
+        <datalist id="connection_list">
+        </datalist>
+        <br>
+        <label for="connection_tips_div" id="connection_tips_label" onclick="showHideFromLabel()" style="text-decoration: underline; font-style: italic;">More tips</label><br>
+        <div id="connection_tips_div" style="display: none;">
+            <p>You can:</p>
+            <ul id="connection_tip_list">
+            </ul>
+        </div>
+        
         <br>
         <br>
 
-        <label for="body">Acknowledge Your MP’s Actions:</label><br>
-        <input class="input" list="acknowledge_list" class="form-control" id="acknowledge" autocomplete="off" placeholder="Pick from the list, or type your own.">
+        <label for="issue">The Issue:</label><br>
+        <h6> Explain the problem. Highlight key details, present the causes of the problem and how widespread or serious it is. Cite your sources. Need help? Review our sources or read existing templates.</h6>
+        <input class="input" list="issue_list" class="form-control" id="issue" autocomplete="off" placeholder="Type your own or pick from list.">
+        <datalist id="issue_list">
+        </datalist>
+        
+        <br>
+
+        <label for="acknowledge">Acknowledge Your MP’s Actions:</label><br>
+        <h6 id=acknowledgement_subtitle>Choose an MP from Step 2 to see the options.</h6>
+        <input class="input" list="acknowledge_list" class="form-control" id="acknowledge" autocomplete="off" placeholder="Type your own or pick from list">
         <datalist id="acknowledge_list">
         </datalist>
-
-        <br>
+        
         <br>
 
         <label >Call to Action:</label><br>
-        <label for="call_to_action_div" id="tips_label" onclick="showHideFromLabel()" style="text-decoration: underline; font-style: italic;">Expand</label><br>
+        <h6>Ask your MP to commit to specific actions. Give a rationale for your request and demonstrate the urgency of the issue. It’s best to keep it to 2 - 4 actions.</h6>
+        <label for="call_to_action_div" id="call_to_action_label" onclick="showHideFromLabel()" style="text-decoration: underline; font-style: italic;">Expand</label><br>
         <div id="call_to_action_div" style="display: none;">
             <ul id="call_to_action_list">
             </ul>
@@ -63,27 +95,27 @@
 
         <br>
 
-        <label for="tips_div" id="tips_label" onclick="showHideFromLabel()" style="text-decoration: underline; font-style: italic;">More tips</label><br>
-        <div id="tips_div" style="display: none;">
-            <p>Share who you are and why you care. It’s important that you use your own words - you know yourself best. MPs are more likely to listen when the message is personalized.</p>
-            <p>You can:</p>
-            <ul id="tip_list_1">
-            </ul>
-            <p>Draw inspiration from the examples below::</p>
-            <ul id="tip_list_2">
-            </ul>
-        </div>
-
+        <label for="closing">Closing:</label><br>
+        <h6> Conclude your email with a demand that the MP respond to you. You can ask for more information about your MP’s stance. If you’re comfortable, ask to call or meet with them.</h6>
+        <input class="input" list="closing_list" class="form-control" id="closing" autocomplete="off" placeholder="Type your own or pick from list">
+        <datalist id="closing_list">
+        </datalist>
+        
         <br>
         
-        <label for="email_text">Email Text:</label><br>
-        <textarea id="email_text" name="email_text" rows="4" cols="50">
+        <h2 for="email_text">Step 4: Review and send:</h2><br>
+        <label for="review_tips_div" id="review_tips_label" onclick="showHideFromLabel()" style="text-decoration: underline; font-style: italic;">More tips</label><br>
+        <div id="review_tips_div" style="display: none;">
+            <ul id="review_tip_list">
+            </ul>
+        </div><br>
+        <textarea id="email_text" name="email_text" style="white-space: pre-wrap;" rows="4" cols="50">
         </textarea>
         
         <br>
         <br>
         
-        <input type="submit" value="Submit">
+        <input id="autofillSubmit" type="submit" value="Send">
     </form>
 </body>
 </html>
