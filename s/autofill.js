@@ -57,7 +57,7 @@ window.onload = function () {
                         has_red = true;
                     }
                     // Check if green values exist
-                    if(step_2_value.style.borderColor == "green") {
+                    if(step_2_value.style.borderColor == "#009a66") {
                         has_green = true;
                     }
                 }
